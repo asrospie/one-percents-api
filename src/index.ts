@@ -7,7 +7,7 @@ require('dotenv').config();
 const FAUNA_SECRET: string = process.env.FAUNA_SECRET;
 const port = process.env.PORT;
 
-function main() {
+async function main() {
     const app = express();
 
     const q = faunadb.query;
@@ -16,8 +16,21 @@ function main() {
     });
 
 
-    app.get("/", (req, res, next) => {
-        res.send('Using https...');
+    app.get("/", async (req, res) => {
+        if (!req.body.email) {
+            console.log('no email');
+            res.send('not a valid request');
+            return;
+        }
+        const response = await server.query(
+            q.Login(
+                q.Match('users_by_email', req.body.email),
+                {
+                    password: req.body.password,
+                }
+            )
+        );
+        res.send(response);
     });
 
     const httpServer = http.createServer(app);
