@@ -16,7 +16,7 @@ async function main() {
     });
 
 
-    app.get("/", async (req, res) => {
+    app.post("/", async (req, res) => {
         if (!req.body.email) {
             console.log('no email');
             res.send('not a valid request');
