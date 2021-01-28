@@ -20,6 +20,9 @@ async function main() {
     app.post("/", async (req, res) => {
         console.log(`EMAIL: ${req.body.email}`);
         console.log(`PASSWORD: ${req.body.password}`);
+        console.log('-----------------');
+        console.log(req);
+        console.log('-----------------');
         try {
             const response: any = await server.query(
                 q.Login(
