@@ -18,6 +18,8 @@ async function main() {
     app.use(express.json());
 
     app.post("/", async (req, res) => {
+        console.log(`EMAIL: ${req.body.email}`);
+        console.log(`PASSWORD: ${req.body.password}`);
         try {
             const response: any = await server.query(
                 q.Login(
