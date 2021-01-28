@@ -5,7 +5,7 @@ require('dotenv').config();
 
 // @ts-ignore
 const FAUNA_SECRET: string = process.env.FAUNA_SECRET;
-const port = 3000;
+const port = process.env.PORT;
 
 function main() {
     const app = express();
