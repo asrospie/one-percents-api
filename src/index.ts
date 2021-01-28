@@ -17,20 +17,17 @@ async function main() {
 
 
     app.post("/", async (req, res) => {
-        if (!req.body.email) {
-            console.log('no email');
-            res.send('not a valid request');
-            return;
-        }
-        const response = await server.query(
-            q.Login(
-                q.Match('users_by_email', req.body.email),
-                {
-                    password: req.body.password,
-                }
-            )
-        );
-        res.send(response);
+        // const response = await server.query(
+        //     q.Login(
+        //         q.Match('users_by_email', req.body.email),
+        //         {
+        //             password: req.body.password,
+        //         }
+        //     )
+        // );
+        // res.send(response);
+        console.log(req);
+        res.send(req);
     });
 
     const httpServer = http.createServer(app);
