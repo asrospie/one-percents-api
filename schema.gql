@@ -1,0 +1,12 @@
+type users {
+    username: String! @unique
+    email: String! @unique
+}
+
+type habits {
+    user: users!
+    name: String! 
+    create_on: String!
+    frequency: Int!
+    dates_completed: [String]
+}
