@@ -15,19 +15,23 @@ async function main() {
        secret: FAUNA_SECRET 
     });
 
+    app.use(express.json());
 
     app.post("/", async (req, res) => {
-        // const response = await server.query(
-        //     q.Login(
-        //         q.Match('users_by_email', req.body.email),
-        //         {
-        //             password: req.body.password,
-        //         }
-        //     )
-        // );
-        // res.send(response);
-        console.log(req);
-        res.send(req);
+        try {
+            const response: any = await server.query(
+                q.Login(
+                    q.Match('users_by_email', req.body.email),
+                    {
+                        password: req.body.password,
+                    }
+                )
+            );
+            res.send(response.secret);
+        } catch (err) {
+            console.log(err);
+            res.send('error occurred');
+        }
     });
 
     const httpServer = http.createServer(app);
