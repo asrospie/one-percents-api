@@ -34,6 +34,29 @@ async function main() {
         }
     });
 
+    app.post('/signup', async (req, res) => {
+        try {
+            const response: any = await server.query(
+                q.Call(
+                    'createUser',
+                    [req.body.name, req.body.email, req.body.password]
+                )
+            );
+            const loginResponse: any = await server.query(
+                q.Login(
+                    q.Match('users_by_email', req.body.email),
+                    {
+                        password: req.body.password
+                    }
+                )
+            );
+            res.send(loginResponse.secret);
+        } catch (err) {
+            console.log(err);
+            res.send('error occurred');
+        }
+    });
+
     const httpServer = http.createServer(app);
     httpServer.listen(port, () => {
         console.log(`Listening on ${port}`);
